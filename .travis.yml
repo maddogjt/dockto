@@ -10,6 +10,10 @@ env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
     - PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+  matrix:
+    - IMAGE=haproxy
+    - IMAGE=webcam
+    - IMAGE=octoprint
 
 stages:
   - name: test
@@ -24,8 +28,7 @@ script:
   - docker buildx build
     --platform $PLATFORMS
     --build-arg "VERSION=$TRAVIS_BRANCH"
-    --file "webcam/Dockerfile"
-    --tag maddogjt/dockto-webcam:$TRAVIS_BRANCH
-    `if [ -n "$TRAVIS_TAG" ]; then echo "--tag maddogjt/dockto-webcam:latest"; fi`
+    --tag maddogjt/dockto-$IMAGE:$TRAVIS_BRANCH
+    `if [ -n "$TRAVIS_TAG" ]; then echo "--tag maddogjt/dockto-$IMAGE:latest"; fi`
     --push
-    webcam
+    $IMAGE
