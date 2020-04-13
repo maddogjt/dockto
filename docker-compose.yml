@@ -1,0 +1,54 @@
+version: '3'
+services:
+  octoprint:
+    image: maddogjt/dockto-octoprint
+    build: 
+      context: octoprint/
+      args:
+        - VERSION=1.3.12
+    volumes:
+      - ./config:/config
+    devices:
+      - /dev/ttyAMA0:/dev/printer
+    restart: always
+    networks:
+      dockto:
+    expose:
+      - "5000"
+  haproxy:
+    image: maddogjt/dockto-haproxy
+    build: 
+      context: haproxy/
+      args:
+        - VERSION=1.3.12
+    volumes:
+      - ./config:/config
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      dockto:
+  webcam:
+    privileged: true
+    image: maddogjt/dockto-webcam
+    build: 
+      context: webcam/
+    environment:
+      - PORT
+      - VIDEO_DEVICE
+      - MJPEG_STREAMER_INPUT
+      - MJPEG_STREAMER_OUTPUT
+    restart: always
+    # devices:
+    #   - /dev/video0
+    #   - /dev/vchiq
+    #   - /dev/vcsm
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+
+
+# Custom network so all services can communicate using a FQDN
+networks:
+    dockto:

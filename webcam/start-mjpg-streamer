@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo mjpg_streamer \
+  -i \"$MJPEG_STREAMER_INPUT\" \
+  -o \"$MJPEG_STREAMER_OUTPUT\"
+
+export LD_LIBRARY_PATH=/usr/local/lib/mjpg-streamer:/opt/vc/lib
+exec mjpg_streamer \
+  -i "$MJPEG_STREAMER_INPUT" \
+  -o "$MJPEG_STREAMER_OUTPUT"

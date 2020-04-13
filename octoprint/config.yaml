@@ -1,0 +1,26 @@
+folder:
+    # Absolute path to a folder being watched for new files which then get automatically
+    # added to OctoPrint (and deleted from that folder). Can e.g. be used to define a folder which
+    # can then be mounted from remote machines and used as local folder for quickly adding downloaded
+    # and/or sliced objects to print in the future.
+    watched: /config/watch
+
+serial:
+  # Use the following option to define the default serial port, defaults to unset (= AUTO)
+  port: /dev/printer
+
+  additionalPorts:
+    - /dev/printer
+
+webcam:
+  # Use this option to enable display of a webcam stream in the UI, e.g. via MJPG-Streamer.
+  # Webcam support will be disabled if not set
+  stream: /webcam/?action=stream
+
+  # Use this option to enable timelapse support via snapshot, e.g. via MJPG-Streamer.
+  # Timelapse support will be disabled if not set
+  snapshot: http://webcam.dockto:8080/?action=snapshot
+
+  # Path to ffmpeg binary to use for creating timelapse recordings.
+  # Timelapse support will be disabled if not set
+  ffmpeg: /usr/bin/ffmpeg
