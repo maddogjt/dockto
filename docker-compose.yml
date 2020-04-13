@@ -15,6 +15,24 @@ services:
       dockto:
     expose:
       - "5000"
+
+  webcam:
+    image: maddogjt/dockto-webcam
+    build: 
+      context: webcam/
+    environment:
+      - PORT
+      - VIDEO_DEVICE
+      - MJPEG_STREAMER_INPUT
+      - MJPEG_STREAMER_OUTPUT
+    restart: always
+    devices:
+      - /dev/vchiq
+      - /dev/vcsm
+    networks:
+      dockto:
+    expose:
+      - "8080"
   haproxy:
     image: maddogjt/dockto-haproxy
     build: 
@@ -28,25 +46,6 @@ services:
       - "80:80"
     networks:
       dockto:
-  webcam:
-    privileged: true
-    image: maddogjt/dockto-webcam
-    build: 
-      context: webcam/
-    environment:
-      - PORT
-      - VIDEO_DEVICE
-      - MJPEG_STREAMER_INPUT
-      - MJPEG_STREAMER_OUTPUT
-    restart: always
-    # devices:
-    #   - /dev/video0
-    #   - /dev/vchiq
-    #   - /dev/vcsm
-    expose:
-      - "8080"
-    ports:
-      - "8080:8080"
 
 
 # Custom network so all services can communicate using a FQDN
