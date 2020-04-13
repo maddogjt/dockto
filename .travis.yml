@@ -6,6 +6,8 @@ dist: bionic
 
 language: bash
 
+if: tag IS present
+
 env:
   global:
     - DOCKER_CLI_EXPERIMENTAL=enabled
