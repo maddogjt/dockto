@@ -28,7 +28,8 @@ COPY --from=build /usr/local/bin /usr/local/bin
 COPY --from=build /usr/local/share /usr/local/share
 COPY --from=build /usr/local/lib /usr/local/lib
 
-RUN apk --no-cache add libjpeg raspberrypi-libs
+RUN apk --no-cache add libjpeg
+RUN [[ "${TARGETPLATFORM:6}" != "arm64" ]] && apk --no-cache add raspberrypi-libs || true 
 
 COPY start-mjpg-streamer /usr/local/bin/start-mjpg-streamer
 
