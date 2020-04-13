@@ -1,8 +1,8 @@
-before_install:
-  - curl -sf https://test.docker.com | sh
-  - docker --version
 
 dist: bionic
+
+services:
+  - docker
 
 language: bash
 
@@ -22,6 +22,17 @@ stages:
     if: tag IS present OR branch = master
   - name: push
     if: tag IS present OR branch = master
+
+cache:
+  directories:
+  - docker_images
+
+before_install:
+  - docker --version
+  - docker load -i docker_images/images.tar || true
+
+before_cache:
+  - docker save -o docker_images/images.tar $(docker images -a -q)
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
