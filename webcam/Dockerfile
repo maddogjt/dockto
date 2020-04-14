@@ -2,7 +2,6 @@
 FROM alpine:3 as build_deps
 
 ARG TARGETPLATFORM
-ARG VERSION
 
 RUN apk --no-cache add build-base git
 RUN apk --no-cache add cmake
@@ -33,11 +32,7 @@ RUN [[ "${TARGETPLATFORM:6}" != "arm64" ]] && apk --no-cache add raspberrypi-lib
 
 COPY start-mjpg-streamer /usr/local/bin/start-mjpg-streamer
 
-ENV VIDEO_DEVICE /dev/video0
-ENV PORT 8080
 ENV MJPEG_STREAMER_INPUT input_raspicam.so -x 640 -y 480 -fps 20 -ex night
-ENV MJPEG_STREAMER_OUTPUT output_http.so -w /usr/local/share/mjpg-streamer/www -p $PORT
-
-EXPOSE $PORT
+ENV MJPEG_STREAMER_OUTPUT output_http.so -w /usr/local/share/mjpg-streamer/www -p 8080
 
 CMD ["start-mjpg-streamer"]

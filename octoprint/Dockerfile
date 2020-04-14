@@ -2,10 +2,10 @@ FROM python:3-alpine
 
 RUN apk --update-cache add ffmpeg
 
-ARG tag=1.4.0
+ARG VERSION
 
 RUN apk add --virtual build-deps gcc musl-dev linux-headers \
-    && pip3 install "octoprint==$tag" \
+    && pip3 install "octoprint==$VERSION" \
     && apk del build-deps
 
 #Create an octoprint user
