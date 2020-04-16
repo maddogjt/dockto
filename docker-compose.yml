@@ -8,6 +8,7 @@ services:
         - VERSION=1.4.0
     volumes:
       - ${CONFIG}/octoprint:/config
+      - octoprint_local:/home/octoprint/.local
     devices:
       - ${PRINTER_DEVICE}:/dev/printer
     restart: always
@@ -48,3 +49,6 @@ services:
 # Custom network so all services can communicate using a FQDN
 networks:
     dockto:
+
+volumes:
+  octoprint_local:

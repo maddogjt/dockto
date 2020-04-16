@@ -24,3 +24,8 @@ webcam:
   # Path to ffmpeg binary to use for creating timelapse recordings.
   # Timelapse support will be disabled if not set
   ffmpeg: /usr/bin/ffmpeg
+
+pluginmanager:
+  # This forces plugins to install to the user folder, which is mapped
+  # to a volume.  This data will be preserved across container updates.
+  pip_force_user: true

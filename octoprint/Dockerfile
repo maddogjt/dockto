@@ -8,21 +8,16 @@ RUN apk add --virtual build-deps gcc musl-dev linux-headers \
     && pip3 install "octoprint==$VERSION" \
     && apk del build-deps
 
-#Create an octoprint user
-RUN adduser -D octoprint && adduser octoprint dialout
-RUN mkdir /config && chown octoprint:octoprint /config
-RUN mkdir /defaults && chown octoprint:octoprint /defaults
+RUN mkdir /config
+RUN mkdir /defaults
 
 #RUN ln -s /data /home/octoprint/.octoprint
 COPY config.yaml /defaults/config.yaml
-COPY start.sh /home/octoprint/
-RUN chown -R octoprint:octoprint /home/octoprint/
-RUN chown -R octoprint:octoprint /defaults/
-WORKDIR /home/octoprint
-USER octoprint
-RUN chmod +x /home/octoprint/start.sh
+COPY start_octoprint.sh /usr/local/bin/start_octoprint.sh
+RUN chmod +x /usr/local/bin/start_octoprint.sh
 
 EXPOSE 5000
 VOLUME /config
+VOLUME /root/.local
 
-CMD [ "/home/octoprint/start.sh" ]
+CMD [ "/usr/local/bin/start_octoprint.sh" ]
