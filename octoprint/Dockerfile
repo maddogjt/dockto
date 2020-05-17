@@ -10,6 +10,7 @@ RUN apk add --virtual build-deps gcc musl-dev linux-headers \
 
 RUN mkdir /config
 RUN mkdir /defaults
+RUN mkdir /root/.local
 
 #RUN ln -s /data /home/octoprint/.octoprint
 COPY config.yaml /defaults/config.yaml

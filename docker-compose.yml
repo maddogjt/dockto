@@ -8,7 +8,7 @@ services:
         - VERSION=1.4.0
     volumes:
       - ${CONFIG}/octoprint:/config
-      - octoprint_local:/home/octoprint/.local
+      - octoprint_local:/root/.local
     devices:
       - ${PRINTER_DEVICE}:/dev/printer
     restart: always
