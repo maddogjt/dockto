@@ -1,8 +1,10 @@
 FROM python:3-alpine
 
-RUN apk --update-cache add ffmpeg
+RUN apk --update-cache add ffmpeg py3-numpy
 
 ARG VERSION
+
+ENV PYTHONPATH=/usr/lib/python3.8/site-packages
 
 RUN apk add --virtual build-deps gcc musl-dev linux-headers \
     && pip3 install "octoprint==$VERSION" \
