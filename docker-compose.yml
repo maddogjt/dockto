@@ -27,7 +27,7 @@ services:
     restart: always
     devices:
       - /dev/vchiq
-      - /dev/vcsm
+#      - /dev/vcsm
     networks:
       dockto:
     expose:
